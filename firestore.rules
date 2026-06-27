@@ -1,0 +1,78 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return signedIn() && request.auth.uid == userId;
+    }
+
+    function ownsInvitation(invitationId) {
+      return signedIn()
+        && exists(/databases/$(database)/documents/invitations/$(invitationId))
+        && get(/databases/$(database)/documents/invitations/$(invitationId)).data.ownerId == request.auth.uid;
+    }
+
+    function invitationIsActive(invitationId) {
+      return exists(/databases/$(database)/documents/invitations/$(invitationId))
+        && get(/databases/$(database)/documents/invitations/$(invitationId)).data.status == 'active';
+    }
+
+    match /users/{userId} {
+      allow read: if isOwner(userId);
+      allow create: if isOwner(userId)
+        && request.resource.data.keys().hasOnly(['displayName', 'email', 'createdAt', 'updatedAt'])
+        && request.resource.data.email is string;
+      allow update: if isOwner(userId)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['displayName', 'updatedAt']);
+      allow delete: if false;
+    }
+
+    match /products/{productId} {
+      allow read: if resource.data.isActive == true;
+      allow write: if false;
+    }
+
+    match /purchases/{purchaseId} {
+      allow read: if signedIn() && resource.data.userId == request.auth.uid;
+      allow write: if false;
+    }
+
+    match /invitations/{invitationId} {
+      allow read: if signedIn() && resource.data.ownerId == request.auth.uid;
+      allow create: if false;
+      allow update: if signedIn()
+        && resource.data.ownerId == request.auth.uid
+        && request.resource.data.ownerId == resource.data.ownerId
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'slug',
+          'status',
+          'coupleNames',
+          'weddingDate',
+          'updatedAt'
+        ]);
+      allow delete: if false;
+
+      match /guestAnswers/{answerId} {
+        allow read: if ownsInvitation(invitationId);
+        allow create: if invitationIsActive(invitationId)
+          && request.resource.data.keys().hasOnly([
+          'guestName',
+          'attending',
+          'partySize',
+          'message',
+          'submittedAt'
+        ])
+          && request.resource.data.guestName is string
+          && request.resource.data.attending is bool
+          && request.resource.data.partySize is int
+          && request.resource.data.partySize >= 1
+          && request.resource.data.partySize <= 20;
+        allow update, delete: if false;
+      }
+    }
+  }
+}

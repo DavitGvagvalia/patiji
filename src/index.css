@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=League+Script&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-brand-black: #000000;
+  --color-brand-navy: #14213d;
+  --color-brand-gold: #fca311;
+  --color-brand-soft: #e5e5e5;
+  --color-brand-white: #ffffff;
+
+  --font-script: "League Script", cursive;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-serif: Georgia, serif;
+}
+
+:root {
+  color-scheme: light;
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: #ffffff;
+  color: #000000;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(252, 163, 17, 0.2);
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  strong {
+    color: #14213d;
+  }
+}
