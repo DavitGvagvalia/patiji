@@ -38,6 +38,7 @@ const Profile = ({ content, locale }: ProfileProps) => {
             passwordLabel: content.profile.passwordLabel,
             displayNameLabel: content.profile.displayNameLabel,
             signInAction: content.profile.signInAction,
+            googleSignInAction: content.profile.googleSignInAction,
             createAccountAction: content.profile.createAccountAction,
             switchToCreate: content.profile.switchToCreate,
             switchToSignIn: content.profile.switchToSignIn,

@@ -91,6 +91,7 @@ export const siteContent = {
     passwordLabel: 'Password',
     displayNameLabel: 'Display name',
     signInAction: 'Sign in',
+    googleSignInAction: 'Continue with Google',
     createAccountAction: 'Create account',
     switchToCreate: 'Create a new account',
     switchToSignIn: 'Use an existing account',

@@ -9,6 +9,7 @@ interface AuthPanelProps {
     passwordLabel: string
     displayNameLabel: string
     signInAction: string
+    googleSignInAction: string
     createAccountAction: string
     switchToCreate: string
     switchToSignIn: string
@@ -43,12 +44,38 @@ export function AuthPanel({ labels }: AuthPanelProps) {
     }
   }
 
+  async function handleGoogleSignIn() {
+    setError(null)
+    setLoading(true)
+
+    try {
+      const { signInWithGoogle } = await import('../../features/auth/authService')
+      await signInWithGoogle()
+    } catch (submitError) {
+      setError(submitError instanceof Error ? submitError.message : 'Google authentication failed.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <section className="rounded-lg border border-brand-soft bg-white p-6">
       <h2 className="text-2xl font-semibold tracking-tight text-brand-navy">{labels.title}</h2>
       <p className="mt-3 max-w-2xl text-sm leading-7 text-brand-black/70">{labels.text}</p>
 
-      <form className="mt-6 grid max-w-xl gap-4" onSubmit={handleSubmit}>
+      <div className="mt-6 max-w-xl">
+        <button
+          type="button"
+          onClick={() => void handleGoogleSignIn()}
+          disabled={loading}
+          className="flex min-h-11 w-full items-center justify-center gap-3 rounded-lg border border-brand-soft bg-white px-5 text-sm font-semibold text-brand-navy transition hover:border-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          <span aria-hidden="true" className="text-base font-bold text-brand-gold">G</span>
+          {labels.googleSignInAction}
+        </button>
+      </div>
+
+      <form className="mt-5 grid max-w-xl gap-4 border-t border-brand-soft pt-5" onSubmit={handleSubmit}>
         {mode === 'create' ? (
           <label className="grid gap-2 text-sm font-semibold text-brand-navy">
             {labels.displayNameLabel}
