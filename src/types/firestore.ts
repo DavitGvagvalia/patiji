@@ -19,7 +19,11 @@ export interface FirestoreProduct {
   palette: TemplatePalette
   layout: 'one-page' | 'story-led' | 'gallery-led'
   languageSupport: string[]
+  description: string
+  tags: string[]
   isActive: boolean
+  isPopular?: boolean
+  isNew?: boolean
   createdAt: TimestampLike
   updatedAt: TimestampLike
 }

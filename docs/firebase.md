@@ -24,7 +24,10 @@ These values identify the Firebase web app. They are not treated as server secre
 - `src/types/firestore.ts` defines the Firestore document shapes used by the app boundary.
 - `src/features/auth/authService.ts` isolates auth operations from UI components.
 - `src/features/profile/profileService.ts` isolates profile and guest answer reads from UI components.
+- `src/features/catalog/catalogService.ts` isolates public catalog product reads from UI components.
 - `firestore.rules` documents the intended production security model.
+
+Catalog product document shape is documented in `docs/catalog-products.md`.
 
 ## Validation path
 

@@ -76,6 +76,9 @@ export const siteContent = {
     allPalettes: 'All palettes',
     previewAction: 'Preview',
     selectAction: 'Select',
+    loadingMessage: 'Loading templates...',
+    fallbackMessage:
+      'Showing curated templates while live catalog data is unavailable.',
     noResults: 'No templates match these filters yet.',
   },
   profile: {

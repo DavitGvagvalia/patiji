@@ -80,6 +80,9 @@ export const dictionaries: Record<Locale, SiteContent> = {
       allPalettes: 'ყველა ფერი',
       previewAction: 'ნახვა',
       selectAction: 'არჩევა',
+      loadingMessage: 'შაბლონები იტვირთება...',
+      fallbackMessage:
+        'ცოცხალი კატალოგის მონაცემების მიუწვდომლობისას ნაჩვენებია შერჩეული შაბლონები.',
       noResults: 'ამ ფილტრებით შაბლონები ჯერ არ მოიძებნა.',
     },
     profile: {
@@ -193,6 +196,9 @@ export const dictionaries: Record<Locale, SiteContent> = {
       allPalettes: 'Все палитры',
       previewAction: 'Просмотр',
       selectAction: 'Выбрать',
+      loadingMessage: 'Загрузка шаблонов...',
+      fallbackMessage:
+        'Показаны отобранные шаблоны, пока данные live-каталога недоступны.',
       noResults: 'По этим фильтрам шаблонов пока нет.',
     },
     profile: {
