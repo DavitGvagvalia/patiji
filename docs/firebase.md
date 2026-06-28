@@ -31,6 +31,8 @@ Catalog product document shape is documented in `docs/catalog-products.md`.
 
 Creating real test catalog products in Firebase is documented in `docs/firebase-test-products.md`.
 
+Custom website inquiry document shape is documented in `docs/custom-inquiries.md`.
+
 Payment flow expectations are documented in `docs/payments.md`.
 
 Public invitation document shape is documented in `docs/public-invitations.md`.

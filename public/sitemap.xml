@@ -15,6 +15,13 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://patiji.ge/catalog" />
   </url>
   <url>
+    <loc>https://patiji.ge/custom-website</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patiji.ge/custom-website" />
+    <xhtml:link rel="alternate" hreflang="ka" href="https://patiji.ge/ka/custom-website" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://patiji.ge/ru/custom-website" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://patiji.ge/custom-website" />
+  </url>
+  <url>
     <loc>https://patiji.ge/profile</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://patiji.ge/profile" />
     <xhtml:link rel="alternate" hreflang="ka" href="https://patiji.ge/ka/profile" />

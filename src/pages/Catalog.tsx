@@ -1,10 +1,12 @@
 import { useMemo, useState } from 'react'
 import { CatalogNotice } from '../components/catalog/CatalogNotice'
 import { CatalogFilters } from '../components/catalog/CatalogFilters'
+import { CustomWebsiteCard } from '../components/catalog/CustomWebsiteCard'
 import { TemplateCard } from '../components/catalog/TemplateCard'
 import { SectionHeader } from '../components/ui/SectionHeader'
 import { useCatalogTemplates } from '../features/catalog/useCatalogTemplates'
 import { usePageSeo } from '../lib/seo'
+import { getLocalizedRoute } from '../routes/routes'
 import type { TemplatePalette, TemplateStyle, WeddingTemplate } from '../types/catalog'
 import type { Locale, SiteContent } from '../types/i18n'
 import type { CheckoutStatus } from '../types/payment'
@@ -120,6 +122,10 @@ const Catalog = ({ content, locale, templates }: CatalogProps) => {
         </div>
 
         <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <CustomWebsiteCard
+            to={getLocalizedRoute(locale, 'customWebsite')}
+            labels={content.catalog.customWebsite}
+          />
           {filteredTemplates.map((template) => (
             <TemplateCard
               key={template.id}

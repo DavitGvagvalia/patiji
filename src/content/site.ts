@@ -2,7 +2,7 @@ import type { WeddingTemplate } from '../types/catalog'
 import type { CustomerProfile, GuestAnswer, PurchasedInvitation } from '../types/profile'
 
 export const siteContent = {
-  brandName: 'Patiji',
+  brandName: 'dapatije',
   nav: {
     home: 'Home',
     catalog: 'Catalog',
@@ -12,19 +12,25 @@ export const siteContent = {
     'Luxury wedding invitation website templates created for couples who value beauty, clarity, and ease.',
   metadata: {
     home: {
-      title: 'Patiji | Luxury Wedding Invitation Website Templates',
+      title: 'dapatije | Luxury Wedding Invitation Website Templates',
       description:
-        'Patiji.ge offers premium wedding invitation website templates for couples who want an elegant, romantic, and modern digital invitation experience.',
+        'dapatije.ge offers premium wedding invitation website templates for couples who want an elegant, romantic, and modern digital invitation experience.',
       path: '/',
     },
     catalog: {
-      title: 'Wedding Website Template Catalog | Patiji',
+      title: 'Wedding Website Template Catalog | dapatije',
       description:
         'Browse luxury wedding website templates by style, color palette, layout, price, and language support.',
       path: '/catalog',
     },
+    customWebsite: {
+      title: 'Custom Wedding Website Inquiry | dapatije',
+      description:
+        'Tell dapatije what you need from a custom wedding invitation website and submit a private project inquiry.',
+      path: '/custom-website',
+    },
     profile: {
-      title: 'Customer Profile and RSVP Answers | Patiji',
+      title: 'Customer Profile and RSVP Answers | dapatije',
       description:
         'View your purchased wedding invitation website template and guest RSVP answers in a clean customer profile.',
       path: '/profile',
@@ -34,7 +40,7 @@ export const siteContent = {
     eyebrow: 'Digital wedding invitations',
     headline: 'Luxury wedding invitation websites for celebrations with presence.',
     intro:
-      'Patiji helps couples launch elegant wedding invitation websites with RSVP collection, refined layouts, and a premium guest experience.',
+      'dapatije helps couples launch elegant wedding invitation websites with RSVP collection, refined layouts, and a premium guest experience.',
     primaryCta: 'Browse templates',
     secondaryCta: 'View profile preview',
     previewLabel: 'Featured template',
@@ -88,6 +94,106 @@ export const siteContent = {
     noResults: 'No templates match these filters yet.',
     noResultsSuggestion: 'Clear filters to see all available invitation templates.',
     resetFiltersAction: 'Reset filters',
+    customWebsite: {
+      eyebrow: 'Custom website',
+      title: 'A wedding website designed around your celebration.',
+      description:
+        'Share your vision, guest needs, languages, budget, and timeline. We will review the details and respond within 24 hours.',
+      priceLabel: 'Custom quote',
+      action: 'Start questionnaire',
+      features: ['Tailored design direction', 'RSVP and guest details', 'Multilingual experience'],
+    },
+  },
+  customWebsite: {
+    eyebrow: 'Custom website inquiry',
+    headline: 'Tell us what your wedding website should become.',
+    intro:
+      'This guided questionnaire helps us understand your celebration, design preferences, must-have sections, budget, and launch timeline.',
+    signedOutTitle: 'Sign in to request a custom website',
+    signedOutText:
+      'Create or use the account that should own this custom wedding website inquiry. After sign-in, the questionnaire will stay on this page.',
+    loadingMessage: 'Loading your account...',
+    errorTitle: 'Something went wrong',
+    stepLabel: 'Step',
+    previousAction: 'Back',
+    nextAction: 'Continue',
+    submitAction: 'Submit inquiry',
+    submittingAction: 'Submitting...',
+    requiredNote: 'Required fields are marked with an asterisk.',
+    successTitle: 'Your custom website inquiry has been sent.',
+    successText:
+      'Thank you. We will review the details and respond within 24 hours using your preferred contact method.',
+    returnCatalogAction: 'Return to catalog',
+    submitErrorMessage: 'The inquiry could not be submitted. Please check the details and try again.',
+    reviewTitle: 'Review your inquiry',
+    emptyValue: 'Not specified',
+    contactMethods: [
+      { value: 'email', label: 'Email' },
+      { value: 'phone', label: 'Phone' },
+      { value: 'whatsapp', label: 'WhatsApp' },
+    ],
+    guestCountRanges: ['Under 50', '50-100', '100-200', '200+'],
+    budgetRanges: ['$500-$1,000', '$1,000-$2,500', '$2,500-$5,000', '$5,000+'],
+    featureOptions: [
+      { value: 'rsvp', label: 'RSVP collection' },
+      { value: 'schedule', label: 'Wedding schedule' },
+      { value: 'venue-map', label: 'Venue and map' },
+      { value: 'gallery', label: 'Photo gallery' },
+      { value: 'multilingual', label: 'Multilingual content' },
+      { value: 'story', label: 'Couple story' },
+      { value: 'registry', label: 'Registry or gift details' },
+    ],
+    languageOptions: [
+      { value: 'English', label: 'English' },
+      { value: 'Georgian', label: 'Georgian' },
+      { value: 'Russian', label: 'Russian' },
+    ],
+    steps: [
+      {
+        title: 'Contact',
+        description: 'Confirm who we should contact about the custom website.',
+        fields: {
+          customerName: 'Your name',
+          customerEmail: 'Email',
+          preferredContactMethod: 'Preferred contact method',
+        },
+      },
+      {
+        title: 'Wedding basics',
+        description: 'Share the core celebration details.',
+        fields: {
+          coupleNames: 'Couple names',
+          weddingDate: 'Wedding date',
+          location: 'City and country',
+          guestCountRange: 'Approximate guest count',
+        },
+      },
+      {
+        title: 'Website needs',
+        description: 'Choose the sections and functions your guests will need.',
+        fields: {
+          requestedFeatures: 'Requested features',
+        },
+      },
+      {
+        title: 'Design direction',
+        description: 'Describe the visual mood and language needs.',
+        fields: {
+          stylePreference: 'Style preference',
+          palettePreference: 'Color palette',
+          languageSupport: 'Website languages',
+          notes: 'Inspiration or notes',
+        },
+      },
+      {
+        title: 'Budget and timeline',
+        description: 'Help us understand the project size and delivery expectation.',
+        fields: {
+          budgetRange: 'Budget range',
+          desiredLaunchDate: 'Desired launch date',
+        },
+      },
+    ],
   },
   profile: {
     eyebrow: 'Customer profile',
@@ -126,7 +232,7 @@ export const siteContent = {
     loadingMessage: 'Loading invitation...',
     unavailableTitle: 'Invitation unavailable',
     unavailableText: 'This invitation may be inactive, private, or no longer available.',
-    returnHomeAction: 'Return to Patiji',
+    returnHomeAction: 'Return to dapatije',
     eyebrow: 'Wedding invitation',
     defaultHeadline: 'Together with their families, they invite you to celebrate.',
     rsvpEyebrow: 'RSVP',
@@ -196,7 +302,7 @@ export const weddingTemplates: WeddingTemplate[] = [
 export const sampleCustomer: CustomerProfile = {
   displayName: 'Nino & Daniel',
   email: 'customer@example.com',
-  invitationUrl: 'patiji.ge/i/nino-daniel',
+  invitationUrl: 'dapatije.ge/i/nino-daniel',
 }
 
 export const sampleInvitation: PurchasedInvitation = {

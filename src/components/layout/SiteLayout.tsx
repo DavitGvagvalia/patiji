@@ -8,6 +8,7 @@ import type { Locale, PageKey } from '../../types/i18n'
 
 const Home = lazy(() => import('../../pages/Home'))
 const Catalog = lazy(() => import('../../pages/Catalog'))
+const CustomWebsite = lazy(() => import('../../pages/CustomWebsite'))
 const Profile = lazy(() => import('../../pages/Profile'))
 const Invitation = lazy(() => import('../../pages/Invitation'))
 
@@ -18,6 +19,10 @@ function getCurrentRouteKey(pathname: string): RouteKey {
 
   if (firstSegment === 'catalog') {
     return 'catalog'
+  }
+
+  if (firstSegment === 'custom-website') {
+    return 'customWebsite'
   }
 
   if (firstSegment === 'profile') {
@@ -36,6 +41,10 @@ function renderPage(locale: Locale, pageKey: PageKey) {
 
   if (pageKey === 'profile') {
     return <Profile content={content} locale={locale} />
+  }
+
+  if (pageKey === 'customWebsite') {
+    return <CustomWebsite content={content} locale={locale} />
   }
 
   return <Home content={content} locale={locale} templates={weddingTemplates} />
@@ -128,10 +137,12 @@ function SiteChrome() {
           <Routes>
             <Route path={routes.home} element={renderPage(defaultLocale, 'home')} />
             <Route path={routes.catalog} element={renderPage(defaultLocale, 'catalog')} />
+            <Route path={routes.customWebsite} element={renderPage(defaultLocale, 'customWebsite')} />
             <Route path={routes.profile} element={renderPage(defaultLocale, 'profile')} />
             <Route path="/i/:slug" element={<Invitation />} />
             <Route path="/:locale" element={<LocalizedPage pageKey="home" />} />
             <Route path="/:locale/catalog" element={<LocalizedPage pageKey="catalog" />} />
+            <Route path="/:locale/custom-website" element={<LocalizedPage pageKey="customWebsite" />} />
             <Route path="/:locale/profile" element={<LocalizedPage pageKey="profile" />} />
             <Route path="/:locale/i/:slug" element={<Invitation />} />
             <Route path="*" element={<Navigate to={routes.home} replace />} />

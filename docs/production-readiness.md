@@ -40,6 +40,7 @@ VITE_CHECKOUT_SESSION_ENDPOINT
 - Enable Email/Password Authentication if the current profile auth form is used.
 - Deploy and test `firestore.rules`.
 - Seed active `products/{productId}` documents.
+- Confirm staff can review `customInquiries/{inquiryId}` documents through trusted access.
 - Seed `publicInvitations/{slug}` only after verified purchase/invitation creation.
 - Use `seed/example-firestore-data.json` as reference data shape, not as proof of production state.
 - Confirm Hosting custom domain is `patiji.ge`.
@@ -48,7 +49,7 @@ VITE_CHECKOUT_SESSION_ENDPOINT
 
 - `public/favicon.svg` exists and is referenced from `index.html`.
 - `public/robots.txt` points to `https://patiji.ge/sitemap.xml`.
-- `public/sitemap.xml` includes the current public brand/catalog/profile routes and language alternates.
+- `public/sitemap.xml` includes the current public brand/catalog/custom website/profile routes and language alternates.
 - Public invitation URLs are not listed in the static sitemap because they are customer-created records. Add dynamic sitemap generation later if invitation pages should be indexed.
 
 ## Bundle decision

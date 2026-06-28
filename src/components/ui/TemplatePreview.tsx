@@ -16,7 +16,7 @@ export function TemplatePreview({ template }: TemplatePreviewProps) {
     <div className={`aspect-[4/5] rounded-lg border border-brand-soft p-3 sm:p-5 ${paletteClasses[template.palette]}`}>
       <div className="flex h-full flex-col justify-between rounded-lg border border-current/20 bg-white/65 p-4 text-brand-navy shadow-sm sm:p-5">
         <div>
-          <p className="font-script text-4xl leading-none text-brand-gold">Patiji</p>
+          <p className="font-script text-4xl leading-none text-brand-gold">dapatije</p>
           <p className="mt-6 text-[0.68rem] uppercase tracking-[0.18em] text-current/60 sm:mt-8 sm:text-xs sm:tracking-[0.3em]">Wedding invitation</p>
           <h3 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">{template.name}</h3>
         </div>

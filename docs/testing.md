@@ -24,6 +24,8 @@ The tests seed data through `withSecurityRulesDisabled` and then verify client b
 - inactive products are denied;
 - public active invitations are readable;
 - archived public invitations are denied;
-- owner-only profile, purchase, invitation, and guest answer reads are enforced;
+- owner-only profile, purchase, custom inquiry, invitation, and guest answer reads are enforced;
+- signed-in customers can create valid custom website inquiries only for themselves;
 - normal clients cannot create purchases or invitations;
+- normal clients cannot update or delete custom website inquiries;
 - public RSVP writes are accepted only for active invitations with valid payloads.

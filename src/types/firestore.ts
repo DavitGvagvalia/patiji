@@ -41,6 +41,30 @@ export interface FirestorePurchase {
   updatedAt: TimestampLike
 }
 
+export type CustomInquiryContactMethod = 'email' | 'phone' | 'whatsapp'
+
+export interface FirestoreCustomInquiry {
+  userId: string
+  customerName: string
+  customerEmail: string
+  preferredContactMethod: CustomInquiryContactMethod
+  coupleNames: string
+  weddingDate?: string
+  location?: string
+  guestCountRange?: string
+  requestedFeatures: string[]
+  stylePreference?: string
+  palettePreference?: string
+  languageSupport: string[]
+  budgetRange: string
+  desiredLaunchDate?: string
+  notes?: string
+  status: 'submitted'
+  source: 'catalog-custom-website'
+  createdAt: TimestampLike
+  updatedAt: TimestampLike
+}
+
 export interface FirestoreInvitation {
   ownerId: string
   productId: string

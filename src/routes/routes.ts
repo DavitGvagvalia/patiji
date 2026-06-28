@@ -1,6 +1,7 @@
 export const routes = {
   home: '/',
   catalog: '/catalog',
+  customWebsite: '/custom-website',
   profile: '/profile',
 } as const
 

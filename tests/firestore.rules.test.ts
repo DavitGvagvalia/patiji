@@ -18,6 +18,30 @@ function now() {
   return firebase.firestore.Timestamp.fromDate(new Date('2026-06-28T00:00:00.000Z'))
 }
 
+function validCustomInquiry(userId = ownerId) {
+  return {
+    userId,
+    customerName: 'Nino',
+    customerEmail: 'owner@example.com',
+    preferredContactMethod: 'email',
+    coupleNames: 'Nino & Daniel',
+    weddingDate: '2026-09-12',
+    location: 'Tbilisi, Georgia',
+    guestCountRange: '100-200',
+    requestedFeatures: ['rsvp', 'schedule', 'venue-map'],
+    stylePreference: 'Elegant garden',
+    palettePreference: 'Sage and ivory',
+    languageSupport: ['English', 'Georgian'],
+    budgetRange: '$1,000-$2,500',
+    desiredLaunchDate: '2026-08-01',
+    notes: 'We want a refined custom wedding website.',
+    status: 'submitted',
+    source: 'catalog-custom-website',
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+  }
+}
+
 async function seedFirestore() {
   await testEnv.withSecurityRulesDisabled(async (context) => {
     const db = context.firestore()
@@ -69,6 +93,20 @@ async function seedFirestore() {
         status: 'paid',
         paymentProvider: 'stripe',
         providerSessionId: 'session_123',
+        createdAt: timestamp,
+        updatedAt: timestamp,
+      }),
+      db.doc('customInquiries/existing-inquiry').set({
+        userId: ownerId,
+        customerName: 'Nino',
+        customerEmail: 'owner@example.com',
+        preferredContactMethod: 'email',
+        coupleNames: 'Nino & Daniel',
+        requestedFeatures: ['rsvp'],
+        languageSupport: ['English'],
+        budgetRange: '$1,000-$2,500',
+        status: 'submitted',
+        source: 'catalog-custom-website',
         createdAt: timestamp,
         updatedAt: timestamp,
       }),
@@ -184,11 +222,12 @@ describe('public invitation rules', () => {
 })
 
 describe('owner-private data rules', () => {
-  test('owners can read their profile, purchases, invitations, and guest answers', async () => {
+  test('owners can read their profile, purchases, custom inquiries, invitations, and guest answers', async () => {
     const db = testEnv.authenticatedContext(ownerId).firestore()
 
     await assertSucceeds(db.doc('users/owner-user').get())
     await assertSucceeds(db.doc('purchases/paid-purchase').get())
+    await assertSucceeds(db.doc('customInquiries/existing-inquiry').get())
     await assertSucceeds(db.doc('invitations/owner-invitation').get())
     await assertSucceeds(db.doc('invitations/owner-invitation/guestAnswers/existing-answer').get())
   })
@@ -198,6 +237,7 @@ describe('owner-private data rules', () => {
 
     await assertFails(db.doc('users/owner-user').get())
     await assertFails(db.doc('purchases/paid-purchase').get())
+    await assertFails(db.doc('customInquiries/existing-inquiry').get())
     await assertFails(db.doc('invitations/owner-invitation').get())
     await assertFails(db.doc('invitations/owner-invitation/guestAnswers/existing-answer').get())
   })
@@ -207,6 +247,44 @@ describe('owner-private data rules', () => {
 
     await assertFails(db.doc('purchases/client-purchase').set({ userId: ownerId }))
     await assertFails(db.doc('invitations/client-invitation').set({ ownerId }))
+  })
+})
+
+describe('custom inquiry rules', () => {
+  test('signed-in users can create valid custom inquiries for themselves', async () => {
+    const db = testEnv.authenticatedContext(ownerId).firestore()
+
+    await assertSucceeds(db.doc('customInquiries/new-inquiry').set(validCustomInquiry()))
+  })
+
+  test('unauthenticated users cannot create custom inquiries', async () => {
+    const db = testEnv.unauthenticatedContext().firestore()
+
+    await assertFails(db.doc('customInquiries/public-inquiry').set(validCustomInquiry()))
+  })
+
+  test('users cannot create custom inquiries for another user id', async () => {
+    const db = testEnv.authenticatedContext(otherUserId).firestore()
+
+    await assertFails(db.doc('customInquiries/other-owner-inquiry').set(validCustomInquiry(ownerId)))
+  })
+
+  test('invalid custom inquiry payloads are rejected', async () => {
+    const db = testEnv.authenticatedContext(ownerId).firestore()
+
+    await assertFails(
+      db.doc('customInquiries/invalid-inquiry').set({
+        ...validCustomInquiry(),
+        requestedFeatures: ['admin-panel'],
+      }),
+    )
+  })
+
+  test('normal clients cannot update or delete custom inquiries', async () => {
+    const db = testEnv.authenticatedContext(ownerId).firestore()
+
+    await assertFails(db.doc('customInquiries/existing-inquiry').update({ notes: 'Updated notes.' }))
+    await assertFails(db.doc('customInquiries/existing-inquiry').delete())
   })
 })
 

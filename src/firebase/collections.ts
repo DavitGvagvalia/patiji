@@ -6,6 +6,7 @@ import {
   type Firestore,
 } from 'firebase/firestore'
 import type {
+  FirestoreCustomInquiry,
   FirestoreGuestAnswer,
   FirestoreInvitation,
   FirestoreProduct,
@@ -28,6 +29,10 @@ export function productsCollection(db: Firestore): CollectionReference<Firestore
 
 export function purchasesCollection(db: Firestore): CollectionReference<FirestorePurchase> {
   return collection(db, 'purchases') as CollectionReference<FirestorePurchase>
+}
+
+export function customInquiriesCollection(db: Firestore): CollectionReference<FirestoreCustomInquiry> {
+  return collection(db, 'customInquiries') as CollectionReference<FirestoreCustomInquiry>
 }
 
 export function invitationsCollection(db: Firestore): CollectionReference<FirestoreInvitation> {

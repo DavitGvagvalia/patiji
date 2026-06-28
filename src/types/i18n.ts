@@ -4,7 +4,7 @@ export type Locale = 'en' | 'ka' | 'ru'
 
 export type SiteContent = typeof siteContent
 
-export type PageKey = 'home' | 'catalog' | 'profile'
+export type PageKey = 'home' | 'catalog' | 'customWebsite' | 'profile'
 
 export interface PageMetadata {
   title: string
