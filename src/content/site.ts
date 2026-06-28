@@ -76,6 +76,12 @@ export const siteContent = {
     allPalettes: 'All palettes',
     previewAction: 'Preview',
     selectAction: 'Select',
+    checkoutLoadingAction: 'Preparing checkout...',
+    checkoutRedirectingMessage: 'Redirecting to secure checkout...',
+    checkoutNotConfiguredMessage:
+      'Checkout is not configured yet. Payment must be connected through a trusted server endpoint before purchases can be completed.',
+    checkoutErrorMessage:
+      'Checkout could not be started. Please try again later.',
     loadingMessage: 'Loading templates...',
     fallbackMessage:
       'Showing curated templates while live catalog data is unavailable.',
@@ -112,6 +118,27 @@ export const siteContent = {
     statusLabel: 'Status',
     weddingDateLabel: 'Wedding date',
     emptyAnswers: 'No responses yet. When guests submit RSVP answers, they will appear here.',
+  },
+  invitation: {
+    loadingMessage: 'Loading invitation...',
+    unavailableTitle: 'Invitation unavailable',
+    unavailableText: 'This invitation may be inactive, private, or no longer available.',
+    eyebrow: 'Wedding invitation',
+    defaultHeadline: 'Together with their families, they invite you to celebrate.',
+    rsvpEyebrow: 'RSVP',
+    rsvpTitle: 'Guest details',
+    guestNameLabel: 'Full name',
+    attendingLabel: 'Will you attend?',
+    attendingYes: 'Yes, I will attend',
+    attendingNo: 'No, I cannot attend',
+    partySizeLabel: 'Number of guests',
+    messageLabel: 'Message',
+    submitAction: 'Send RSVP',
+    submittingAction: 'Sending...',
+    successMessage: 'Thank you. Your RSVP has been sent.',
+    errorMessage: 'Your RSVP could not be sent. Please try again.',
+    venueLabel: 'Venue',
+    dateLabel: 'Date',
   },
 }
 

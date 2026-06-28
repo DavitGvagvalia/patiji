@@ -41,6 +41,11 @@ service cloud.firestore {
       allow write: if false;
     }
 
+    match /publicInvitations/{slug} {
+      allow read: if resource.data.status == 'active';
+      allow write: if false;
+    }
+
     match /invitations/{invitationId} {
       allow read: if signedIn() && resource.data.ownerId == request.auth.uid;
       allow create: if false;
@@ -67,10 +72,17 @@ service cloud.firestore {
           'submittedAt'
         ])
           && request.resource.data.guestName is string
+          && request.resource.data.guestName.size() >= 1
+          && request.resource.data.guestName.size() <= 120
           && request.resource.data.attending is bool
           && request.resource.data.partySize is int
           && request.resource.data.partySize >= 1
-          && request.resource.data.partySize <= 20;
+          && request.resource.data.partySize <= 20
+          && request.resource.data.submittedAt == request.time
+          && (
+            !('message' in request.resource.data)
+            || (request.resource.data.message is string && request.resource.data.message.size() <= 500)
+          );
         allow update, delete: if false;
       }
     }

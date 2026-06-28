@@ -7,6 +7,7 @@ import { useCatalogTemplates } from '../features/catalog/useCatalogTemplates'
 import { usePageSeo } from '../lib/seo'
 import type { TemplatePalette, TemplateStyle, WeddingTemplate } from '../types/catalog'
 import type { Locale, SiteContent } from '../types/i18n'
+import type { CheckoutStatus } from '../types/payment'
 
 interface CatalogProps {
   content: SiteContent
@@ -17,6 +18,10 @@ interface CatalogProps {
 const Catalog = ({ content, locale, templates }: CatalogProps) => {
   const [activeStyle, setActiveStyle] = useState<TemplateStyle | 'all'>('all')
   const [activePalette, setActivePalette] = useState<TemplatePalette | 'all'>('all')
+  const [checkoutState, setCheckoutState] = useState<{
+    status: CheckoutStatus
+    productId: string | null
+  }>({ status: 'idle', productId: null })
   const catalogState = useCatalogTemplates(templates)
 
   usePageSeo(content.metadata.catalog, locale)
@@ -36,6 +41,28 @@ const Catalog = ({ content, locale, templates }: CatalogProps) => {
     return matchesStyle && matchesPalette
   })
 
+  async function handleSelectTemplate(template: WeddingTemplate) {
+    setCheckoutState({ status: 'loading', productId: template.id })
+
+    try {
+      const { createCheckoutSession } = await import('../features/payments/paymentService')
+      const session = await createCheckoutSession({
+        productId: template.id,
+        locale,
+      })
+
+      setCheckoutState({ status: 'redirecting', productId: template.id })
+      window.location.assign(session.checkoutUrl)
+    } catch (error) {
+      if (error instanceof Error && error.name === 'CheckoutNotConfiguredError') {
+        setCheckoutState({ status: 'not-configured', productId: template.id })
+        return
+      }
+
+      setCheckoutState({ status: 'error', productId: template.id })
+    }
+  }
+
   return (
     <section className="bg-brand-soft/25">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -53,6 +80,24 @@ const Catalog = ({ content, locale, templates }: CatalogProps) => {
               message={catalogState.error ? `${content.catalog.fallbackMessage} ${catalogState.error}` : content.catalog.fallbackMessage}
               tone="warning"
             />
+          </div>
+        ) : null}
+
+        {checkoutState.status === 'redirecting' ? (
+          <div className="mt-8">
+            <CatalogNotice message={content.catalog.checkoutRedirectingMessage} />
+          </div>
+        ) : null}
+
+        {checkoutState.status === 'not-configured' ? (
+          <div className="mt-8">
+            <CatalogNotice message={content.catalog.checkoutNotConfiguredMessage} tone="warning" />
+          </div>
+        ) : null}
+
+        {checkoutState.status === 'error' ? (
+          <div className="mt-8">
+            <CatalogNotice message={content.catalog.checkoutErrorMessage} tone="warning" />
           </div>
         ) : null}
 
@@ -81,6 +126,10 @@ const Catalog = ({ content, locale, templates }: CatalogProps) => {
               template={template}
               previewLabel={content.catalog.previewAction}
               selectLabel={content.catalog.selectAction}
+              checkoutLoadingLabel={content.catalog.checkoutLoadingAction}
+              isCheckoutLoading={checkoutState.status === 'loading' && checkoutState.productId === template.id}
+              isCheckoutDisabled={checkoutState.status === 'loading' || checkoutState.status === 'redirecting'}
+              onSelect={handleSelectTemplate}
             />
           ))}
         </div>

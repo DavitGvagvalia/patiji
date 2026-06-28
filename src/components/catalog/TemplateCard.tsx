@@ -5,9 +5,21 @@ interface TemplateCardProps {
   template: WeddingTemplate
   previewLabel: string
   selectLabel: string
+  checkoutLoadingLabel: string
+  isCheckoutLoading?: boolean
+  isCheckoutDisabled?: boolean
+  onSelect: (template: WeddingTemplate) => void
 }
 
-export function TemplateCard({ template, previewLabel, selectLabel }: TemplateCardProps) {
+export function TemplateCard({
+  template,
+  previewLabel,
+  selectLabel,
+  checkoutLoadingLabel,
+  isCheckoutLoading = false,
+  isCheckoutDisabled = false,
+  onSelect,
+}: TemplateCardProps) {
   return (
     <article className="grid gap-5 rounded-lg border border-brand-soft bg-white p-4 shadow-sm">
       <TemplatePreview template={template} />
@@ -41,11 +53,19 @@ export function TemplateCard({ template, previewLabel, selectLabel }: TemplateCa
           ))}
         </div>
         <div className="mt-5 grid grid-cols-2 gap-3">
-          <button className="min-h-11 rounded-lg border border-brand-soft px-4 text-sm font-semibold text-brand-navy transition hover:border-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold">
+          <button
+            type="button"
+            className="min-h-11 rounded-lg border border-brand-soft px-4 text-sm font-semibold text-brand-navy transition hover:border-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold"
+          >
             {previewLabel}
           </button>
-          <button className="min-h-11 rounded-lg bg-brand-navy px-4 text-sm font-semibold text-white transition hover:bg-brand-black focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2">
-            {selectLabel}
+          <button
+            type="button"
+            disabled={isCheckoutDisabled}
+            onClick={() => onSelect(template)}
+            className="min-h-11 rounded-lg bg-brand-navy px-4 text-sm font-semibold text-white transition hover:bg-brand-black focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {isCheckoutLoading ? checkoutLoadingLabel : selectLabel}
           </button>
         </div>
       </div>

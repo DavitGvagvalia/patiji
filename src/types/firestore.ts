@@ -52,6 +52,20 @@ export interface FirestoreInvitation {
   updatedAt: TimestampLike
 }
 
+export interface FirestorePublicInvitation {
+  invitationId: string
+  slug: string
+  status: 'active' | 'archived'
+  coupleNames: string
+  headline: string
+  message: string
+  weddingDate?: string
+  venueName?: string
+  venueAddress?: string
+  createdAt: TimestampLike
+  updatedAt: TimestampLike
+}
+
 export interface FirestoreGuestAnswer {
   guestName: string
   attending: boolean

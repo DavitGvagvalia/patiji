@@ -29,6 +29,10 @@ These values identify the Firebase web app. They are not treated as server secre
 
 Catalog product document shape is documented in `docs/catalog-products.md`.
 
+Payment flow expectations are documented in `docs/payments.md`.
+
+Public invitation document shape is documented in `docs/public-invitations.md`.
+
 ## Validation path
 
 1. Add real Firebase values to `.env.local`.

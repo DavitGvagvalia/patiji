@@ -9,6 +9,7 @@ import type {
   FirestoreGuestAnswer,
   FirestoreInvitation,
   FirestoreProduct,
+  FirestorePublicInvitation,
   FirestorePurchase,
   FirestoreUser,
 } from '../types/firestore'
@@ -31,6 +32,13 @@ export function purchasesCollection(db: Firestore): CollectionReference<Firestor
 
 export function invitationsCollection(db: Firestore): CollectionReference<FirestoreInvitation> {
   return collection(db, 'invitations') as CollectionReference<FirestoreInvitation>
+}
+
+export function publicInvitationDocument(
+  db: Firestore,
+  slug: string,
+): DocumentReference<FirestorePublicInvitation> {
+  return doc(db, 'publicInvitations', slug) as DocumentReference<FirestorePublicInvitation>
 }
 
 export function invitationDocument(db: Firestore, invitationId: string): DocumentReference<FirestoreInvitation> {

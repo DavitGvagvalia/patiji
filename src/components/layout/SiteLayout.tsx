@@ -9,6 +9,7 @@ import type { Locale, PageKey } from '../../types/i18n'
 const Home = lazy(() => import('../../pages/Home'))
 const Catalog = lazy(() => import('../../pages/Catalog'))
 const Profile = lazy(() => import('../../pages/Profile'))
+const Invitation = lazy(() => import('../../pages/Invitation'))
 
 function getCurrentRouteKey(pathname: string): RouteKey {
   const segments = pathname.split('/').filter(Boolean)
@@ -55,6 +56,8 @@ function SiteChrome() {
   const activeLocale = getLocaleFromPath(location.pathname)
   const content = dictionaries[activeLocale]
   const activeRouteKey = getCurrentRouteKey(location.pathname)
+  const pathSegments = location.pathname.split('/').filter(Boolean)
+  const isInvitationRoute = pathSegments[0] === 'i' || (isLocale(pathSegments[0]) && pathSegments[1] === 'i')
   const navItems = [
     { label: content.nav.home, path: getLocalizedRoute(activeLocale, 'home') },
     { label: content.nav.catalog, path: getLocalizedRoute(activeLocale, 'catalog') },
@@ -63,44 +66,46 @@ function SiteChrome() {
 
   return (
     <div className="min-h-screen bg-brand-white text-brand-black">
-      <header className="sticky top-0 z-20 border-b border-brand-soft bg-white/95 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
-          <Link to={getLocalizedRoute(activeLocale, 'home')} className="text-xl font-semibold tracking-tight text-brand-navy">
-            {content.brandName}
-          </Link>
-          <div className="flex items-center gap-3">
-            <nav aria-label="Primary navigation" className="flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.14em] text-brand-black/65 sm:gap-2">
-              {navItems.map((item) => (
-                <NavLink
-                  key={item.path}
-                  to={item.path}
-                  className={({ isActive }) =>
-                    `rounded-lg px-3 py-2 transition focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 ${
-                      isActive ? 'bg-brand-navy text-brand-white' : 'hover:bg-brand-soft/70 hover:text-brand-navy'
-                    }`
-                  }
-                >
-                  {item.label}
-                </NavLink>
-              ))}
-            </nav>
-            <nav aria-label="Language switcher" className="flex items-center gap-1 border-l border-brand-soft pl-3 text-xs font-semibold">
-              {supportedLocales.map((locale) => (
-                <Link
-                  key={locale}
-                  to={getLocalizedRoute(locale, activeRouteKey)}
-                  lang={locale}
-                  className={`rounded-lg px-2.5 py-2 transition focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 ${
-                    locale === activeLocale ? 'bg-brand-gold/20 text-brand-navy' : 'text-brand-black/60 hover:bg-brand-soft/70'
-                  }`}
-                >
-                  {localeLabels[locale]}
-                </Link>
-              ))}
-            </nav>
+      {!isInvitationRoute ? (
+        <header className="sticky top-0 z-20 border-b border-brand-soft bg-white/95 backdrop-blur">
+          <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+            <Link to={getLocalizedRoute(activeLocale, 'home')} className="text-xl font-semibold tracking-tight text-brand-navy">
+              {content.brandName}
+            </Link>
+            <div className="flex items-center gap-3">
+              <nav aria-label="Primary navigation" className="flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.14em] text-brand-black/65 sm:gap-2">
+                {navItems.map((item) => (
+                  <NavLink
+                    key={item.path}
+                    to={item.path}
+                    className={({ isActive }) =>
+                      `rounded-lg px-3 py-2 transition focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 ${
+                        isActive ? 'bg-brand-navy text-brand-white' : 'hover:bg-brand-soft/70 hover:text-brand-navy'
+                      }`
+                    }
+                  >
+                    {item.label}
+                  </NavLink>
+                ))}
+              </nav>
+              <nav aria-label="Language switcher" className="flex items-center gap-1 border-l border-brand-soft pl-3 text-xs font-semibold">
+                {supportedLocales.map((locale) => (
+                  <Link
+                    key={locale}
+                    to={getLocalizedRoute(locale, activeRouteKey)}
+                    lang={locale}
+                    className={`rounded-lg px-2.5 py-2 transition focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 ${
+                      locale === activeLocale ? 'bg-brand-gold/20 text-brand-navy' : 'text-brand-black/60 hover:bg-brand-soft/70'
+                    }`}
+                  >
+                    {localeLabels[locale]}
+                  </Link>
+                ))}
+              </nav>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
+      ) : null}
 
       <main>
         <Suspense fallback={<div className="mx-auto max-w-7xl px-4 py-16 text-sm text-brand-black/70 sm:px-6 lg:px-8">{content.profile.loadingMessage}</div>}>
@@ -108,20 +113,24 @@ function SiteChrome() {
             <Route path={routes.home} element={renderPage(defaultLocale, 'home')} />
             <Route path={routes.catalog} element={renderPage(defaultLocale, 'catalog')} />
             <Route path={routes.profile} element={renderPage(defaultLocale, 'profile')} />
+            <Route path="/i/:slug" element={<Invitation />} />
             <Route path="/:locale" element={<LocalizedPage pageKey="home" />} />
             <Route path="/:locale/catalog" element={<LocalizedPage pageKey="catalog" />} />
             <Route path="/:locale/profile" element={<LocalizedPage pageKey="profile" />} />
+            <Route path="/:locale/i/:slug" element={<Invitation />} />
             <Route path="*" element={<Navigate to={routes.home} replace />} />
           </Routes>
         </Suspense>
       </main>
 
-      <footer className="border-t border-brand-soft bg-white py-8">
-        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 text-sm text-brand-black/60 sm:px-6 lg:px-8">
-          <p className="font-semibold text-brand-navy">{content.brandName}</p>
-          <p>{content.footer}</p>
-        </div>
-      </footer>
+      {!isInvitationRoute ? (
+        <footer className="border-t border-brand-soft bg-white py-8">
+          <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 text-sm text-brand-black/60 sm:px-6 lg:px-8">
+            <p className="font-semibold text-brand-navy">{content.brandName}</p>
+            <p>{content.footer}</p>
+          </div>
+        </footer>
+      ) : null}
     </div>
   )
 }

@@ -7,6 +7,10 @@ interface FirebaseEnv {
   appId: string
 }
 
+interface CheckoutEnv {
+  checkoutSessionEndpoint: string | null
+}
+
 const firebaseEnvKeys = [
   'VITE_FIREBASE_API_KEY',
   'VITE_FIREBASE_AUTH_DOMAIN',
@@ -36,5 +40,16 @@ export function getFirebaseEnv(): FirebaseEnv {
     storageBucket: readRequiredEnv('VITE_FIREBASE_STORAGE_BUCKET'),
     messagingSenderId: readRequiredEnv('VITE_FIREBASE_MESSAGING_SENDER_ID'),
     appId: readRequiredEnv('VITE_FIREBASE_APP_ID'),
+  }
+}
+
+export function getCheckoutEnv(): CheckoutEnv {
+  const checkoutSessionEndpoint = import.meta.env.VITE_CHECKOUT_SESSION_ENDPOINT
+
+  return {
+    checkoutSessionEndpoint:
+      typeof checkoutSessionEndpoint === 'string' && checkoutSessionEndpoint.trim() !== ''
+        ? checkoutSessionEndpoint
+        : null,
   }
 }
