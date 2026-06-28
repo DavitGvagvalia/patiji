@@ -47,12 +47,22 @@ const Home = ({ content, locale, templates }: HomeProps) => {
         </div>
       </section>
 
+      <section className="bg-brand-soft/25">
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+          <SectionHeader title={content.home.stepsTitle} />
+          <div className="mt-8">
+            <HowItWorks steps={content.home.steps} />
+          </div>
+        </div>
+      </section>
+
       <section className="border-y border-brand-soft bg-brand-soft/25">
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
           <SectionHeader title={content.home.valueTitle} text={content.home.valueCopy} />
         </div>
       </section>
 
+      
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
           <SectionHeader title={content.home.benefitsTitle} />
@@ -62,14 +72,6 @@ const Home = ({ content, locale, templates }: HomeProps) => {
         </div>
       </section>
 
-      <section className="bg-brand-soft/25">
-        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
-          <SectionHeader title={content.home.stepsTitle} />
-          <div className="mt-8">
-            <HowItWorks steps={content.home.steps} />
-          </div>
-        </div>
-      </section>
     </>
   )
 }
