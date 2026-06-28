@@ -17,18 +17,21 @@ interface CustomWebsiteProps {
   locale: Locale
 }
 
+const defaultWebsiteLanguage = 'English'
+
 const initialFormData: CustomInquiryFormData = {
   customerName: '',
   customerEmail: '',
   preferredContactMethod: 'email',
-  coupleNames: '',
+  partnerOneName: '',
+  partnerTwoName: '',
   weddingDate: '',
   location: '',
   guestCountRange: '',
   requestedFeatures: [],
   stylePreference: '',
   palettePreference: '',
-  languageSupport: [],
+  languageSupport: [defaultWebsiteLanguage],
   budgetRange: '',
   desiredLaunchDate: '',
   notes: '',
@@ -51,6 +54,10 @@ function getOptionLabel(options: string[], value: string, emptyValue: string) {
   return options.find((option) => option === value) ?? emptyValue
 }
 
+function getLabeledOptionLabel(options: { value: string; label: string }[], value: string, emptyValue: string) {
+  return options.find((option) => option.value === value)?.label ?? emptyValue
+}
+
 function getContactMethodLabel(
   options: SiteContent['customWebsite']['contactMethods'],
   value: CustomInquiryContactMethod,
@@ -64,6 +71,15 @@ function getLanguageLabels(options: SiteContent['customWebsite']['languageOption
 
 function labelText(value: string | undefined) {
   return value ?? ''
+}
+
+function selectableClassName(selected: boolean) {
+  return [
+    'flex min-h-11 items-center gap-2 rounded-lg border px-3 text-sm transition',
+    selected
+      ? 'border-brand-gold bg-[#fff8ec] text-brand-navy shadow-sm'
+      : 'border-brand-soft bg-white text-brand-black/75 hover:border-brand-gold/70 hover:bg-[#fffaf1]',
+  ].join(' ')
 }
 
 const CustomWebsite = ({ content, locale }: CustomWebsiteProps) => {
@@ -92,6 +108,7 @@ const CustomWebsite = ({ content, locale }: CustomWebsiteProps) => {
 
   const activeStepLabels = labels.steps[activeStep]
   const progressLabel = `${labels.stepLabel} ${Math.min(activeStep + 1, reviewStep + 1)} / ${reviewStep + 1}`
+  const coupleNames = [formData.partnerOneName.trim(), formData.partnerTwoName.trim()].filter(Boolean).join(' & ')
   const selectedFeatureLabels = useMemo(
     () =>
       formData.requestedFeatures
@@ -110,19 +127,16 @@ const CustomWebsite = ({ content, locale }: CustomWebsiteProps) => {
 
   function canContinueFromStep(step: number) {
     if (step === 0) {
-      return formData.customerName.trim() !== '' && formData.customerEmail.trim() !== ''
-    }
-
-    if (step === 1) {
-      return formData.coupleNames.trim() !== ''
+      return (
+        formData.partnerOneName.trim() !== '' &&
+        formData.partnerTwoName.trim() !== '' &&
+        formData.customerName.trim() !== '' &&
+        formData.customerEmail.trim() !== ''
+      )
     }
 
     if (step === 2) {
       return formData.requestedFeatures.length > 0
-    }
-
-    if (step === 3) {
-      return formData.languageSupport.length > 0
     }
 
     if (step === 4) {
@@ -142,10 +156,22 @@ const CustomWebsite = ({ content, locale }: CustomWebsiteProps) => {
     setActiveStep((current) => Math.min(current + 1, reviewStep))
   }
 
+  function updateLanguageSupport(language: string) {
+    if (language === defaultWebsiteLanguage) {
+      return
+    }
+
+    const nextLanguages = toggleValue(formData.languageSupport, language)
+    updateField(
+      'languageSupport',
+      nextLanguages.includes(defaultWebsiteLanguage) ? nextLanguages : [defaultWebsiteLanguage, ...nextLanguages],
+    )
+  }
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    if (!authState.user || !canContinueFromStep(4)) {
+    if (!authState.user || !canContinueFromStep(0) || !canContinueFromStep(2) || !canContinueFromStep(4)) {
       setError(labels.submitErrorMessage)
       return
     }
@@ -188,6 +214,28 @@ const CustomWebsite = ({ content, locale }: CustomWebsiteProps) => {
 
     return (
       <div className="grid gap-4">
+        <div className="grid gap-4 rounded-lg border border-brand-gold/30 bg-[#fff8ec] p-4 sm:grid-cols-2">
+          <label className="grid gap-2 text-sm font-semibold text-brand-navy">
+            <FieldLabel required>{fields.partnerOneName}</FieldLabel>
+            <input
+              value={formData.partnerOneName}
+              onChange={(event) => updateField('partnerOneName', event.target.value)}
+              required
+              className="min-h-11 rounded-lg border border-brand-soft bg-white px-3 text-brand-black focus:outline-none focus:ring-2 focus:ring-brand-gold"
+            />
+          </label>
+
+          <label className="grid gap-2 text-sm font-semibold text-brand-navy">
+            <FieldLabel required>{fields.partnerTwoName}</FieldLabel>
+            <input
+              value={formData.partnerTwoName}
+              onChange={(event) => updateField('partnerTwoName', event.target.value)}
+              required
+              className="min-h-11 rounded-lg border border-brand-soft bg-white px-3 text-brand-black focus:outline-none focus:ring-2 focus:ring-brand-gold"
+            />
+          </label>
+        </div>
+
         <label className="grid gap-2 text-sm font-semibold text-brand-navy">
           <FieldLabel required>{fields.customerName}</FieldLabel>
           <input
@@ -216,7 +264,7 @@ const CustomWebsite = ({ content, locale }: CustomWebsiteProps) => {
             {labels.contactMethods.map((method) => (
               <label
                 key={method.value}
-                className="flex min-h-11 items-center gap-2 rounded-lg border border-brand-soft px-3 text-sm text-brand-black/75"
+                className={selectableClassName(formData.preferredContactMethod === method.value)}
               >
                 <input
                   type="radio"
@@ -240,15 +288,9 @@ const CustomWebsite = ({ content, locale }: CustomWebsiteProps) => {
 
     return (
       <div className="grid gap-4 sm:grid-cols-2">
-        <label className="grid gap-2 text-sm font-semibold text-brand-navy sm:col-span-2">
-          <FieldLabel required>{fields.coupleNames}</FieldLabel>
-          <input
-            value={formData.coupleNames}
-            onChange={(event) => updateField('coupleNames', event.target.value)}
-            required
-            className="min-h-11 rounded-lg border border-brand-soft px-3 text-brand-black focus:outline-none focus:ring-2 focus:ring-brand-gold"
-          />
-        </label>
+        <p className="rounded-lg border border-brand-gold/30 bg-[#fff8ec] p-4 text-sm leading-6 text-brand-black/70 sm:col-span-2">
+          {labels.optionalDetailsNote}
+        </p>
 
         <label className="grid gap-2 text-sm font-semibold text-brand-navy">
           {fields.weddingDate}
@@ -300,7 +342,7 @@ const CustomWebsite = ({ content, locale }: CustomWebsiteProps) => {
           {labels.featureOptions.map((feature) => (
             <label
               key={feature.value}
-              className="flex min-h-11 items-center gap-2 rounded-lg border border-brand-soft px-3 text-sm text-brand-black/75"
+              className={selectableClassName(formData.requestedFeatures.includes(feature.value))}
             >
               <input
                 type="checkbox"
@@ -321,40 +363,60 @@ const CustomWebsite = ({ content, locale }: CustomWebsiteProps) => {
 
     return (
       <div className="grid gap-4">
-        <div className="grid gap-4 sm:grid-cols-2">
-          <label className="grid gap-2 text-sm font-semibold text-brand-navy">
-            {fields.stylePreference}
-            <input
-              value={formData.stylePreference}
-              onChange={(event) => updateField('stylePreference', event.target.value)}
-              className="min-h-11 rounded-lg border border-brand-soft px-3 text-brand-black focus:outline-none focus:ring-2 focus:ring-brand-gold"
-            />
-          </label>
-
-          <label className="grid gap-2 text-sm font-semibold text-brand-navy">
-            {fields.palettePreference}
-            <input
-              value={formData.palettePreference}
-              onChange={(event) => updateField('palettePreference', event.target.value)}
-              className="min-h-11 rounded-lg border border-brand-soft px-3 text-brand-black focus:outline-none focus:ring-2 focus:ring-brand-gold"
-            />
-          </label>
-        </div>
+        <fieldset className="grid gap-3">
+          <legend className="text-sm font-semibold text-brand-navy">{fields.stylePreference}</legend>
+          <div className="grid gap-2 sm:grid-cols-4">
+            {labels.styleOptions.map((style) => (
+              <label key={style.value} className={selectableClassName(formData.stylePreference === style.value)}>
+                <input
+                  type="radio"
+                  name="stylePreference"
+                  value={style.value}
+                  checked={formData.stylePreference === style.value}
+                  onChange={() => updateField('stylePreference', style.value)}
+                  className="accent-brand-gold"
+                />
+                {style.label}
+              </label>
+            ))}
+          </div>
+        </fieldset>
 
         <fieldset className="grid gap-3">
-          <legend className="text-sm font-semibold text-brand-navy">
-            <FieldLabel required>{fields.languageSupport}</FieldLabel>
-          </legend>
+          <legend className="text-sm font-semibold text-brand-navy">{fields.palettePreference}</legend>
+          <div className="grid gap-2 sm:grid-cols-4">
+            {labels.paletteOptions.map((palette) => (
+              <label key={palette.value} className={selectableClassName(formData.palettePreference === palette.value)}>
+                <input
+                  type="radio"
+                  name="palettePreference"
+                  value={palette.value}
+                  checked={formData.palettePreference === palette.value}
+                  onChange={() => updateField('palettePreference', palette.value)}
+                  className="accent-brand-gold"
+                />
+                {palette.label}
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <fieldset className="grid gap-3">
+          <legend className="text-sm font-semibold text-brand-navy">{fields.languageSupport}</legend>
+          <p className="rounded-lg border border-brand-soft bg-[#f7f8f4] p-3 text-sm leading-6 text-brand-black/70">
+            {labels.defaultLanguageNote}
+          </p>
           <div className="grid gap-2 sm:grid-cols-3">
             {labels.languageOptions.map((language) => (
               <label
                 key={language.value}
-                className="flex min-h-11 items-center gap-2 rounded-lg border border-brand-soft px-3 text-sm text-brand-black/75"
+                className={selectableClassName(formData.languageSupport.includes(language.value))}
               >
                 <input
                   type="checkbox"
                   checked={formData.languageSupport.includes(language.value)}
-                  onChange={() => updateField('languageSupport', toggleValue(formData.languageSupport, language.value))}
+                  disabled={language.value === defaultWebsiteLanguage}
+                  onChange={() => updateLanguageSupport(language.value)}
                   className="accent-brand-gold"
                 />
                 {language.label}
@@ -400,6 +462,7 @@ const CustomWebsite = ({ content, locale }: CustomWebsiteProps) => {
 
         <label className="grid gap-2 text-sm font-semibold text-brand-navy">
           {fields.desiredLaunchDate}
+          <span className="text-xs font-medium leading-5 text-brand-black/55">{labels.launchDateOptionalNote}</span>
           <input
             type="date"
             value={formData.desiredLaunchDate}
@@ -415,8 +478,8 @@ const CustomWebsite = ({ content, locale }: CustomWebsiteProps) => {
     const displayValue = Array.isArray(value) ? value.join(', ') : value
 
     return (
-      <div className="rounded-lg border border-brand-soft p-4">
-        <dt className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-black/50">{label}</dt>
+      <div className="rounded-lg border border-brand-gold/20 bg-[#fffdf8] p-4 shadow-sm">
+        <dt className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-navy/60">{label}</dt>
         <dd className="mt-2 text-sm leading-6 text-brand-black/75">{displayValue || labels.emptyValue}</dd>
       </div>
     )
@@ -433,7 +496,7 @@ const CustomWebsite = ({ content, locale }: CustomWebsiteProps) => {
             labelText(labels.steps[0].fields.preferredContactMethod),
             getContactMethodLabel(labels.contactMethods, formData.preferredContactMethod),
           )}
-          {renderReviewItem(labelText(labels.steps[1].fields.coupleNames), formData.coupleNames)}
+          {renderReviewItem(labelText(labels.steps[1].fields.coupleNames), coupleNames)}
           {renderReviewItem(labelText(labels.steps[1].fields.weddingDate), formData.weddingDate)}
           {renderReviewItem(labelText(labels.steps[1].fields.location), formData.location)}
           {renderReviewItem(
@@ -441,8 +504,14 @@ const CustomWebsite = ({ content, locale }: CustomWebsiteProps) => {
             getOptionLabel(labels.guestCountRanges, formData.guestCountRange, labels.emptyValue),
           )}
           {renderReviewItem(labelText(labels.steps[2].fields.requestedFeatures), selectedFeatureLabels)}
-          {renderReviewItem(labelText(labels.steps[3].fields.stylePreference), formData.stylePreference)}
-          {renderReviewItem(labelText(labels.steps[3].fields.palettePreference), formData.palettePreference)}
+          {renderReviewItem(
+            labelText(labels.steps[3].fields.stylePreference),
+            getLabeledOptionLabel(labels.styleOptions, formData.stylePreference, labels.emptyValue),
+          )}
+          {renderReviewItem(
+            labelText(labels.steps[3].fields.palettePreference),
+            getLabeledOptionLabel(labels.paletteOptions, formData.palettePreference, labels.emptyValue),
+          )}
           {renderReviewItem(
             labelText(labels.steps[3].fields.languageSupport),
             getLanguageLabels(labels.languageOptions, formData.languageSupport),
@@ -500,8 +569,8 @@ const CustomWebsite = ({ content, locale }: CustomWebsiteProps) => {
     }
 
     return (
-      <form className="rounded-lg border border-brand-soft bg-white p-5 sm:p-6" onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-4 border-b border-brand-soft pb-5 lg:flex-row lg:items-start lg:justify-between">
+      <form className="rounded-lg border border-brand-gold/20 bg-white p-5 shadow-sm sm:p-6" onSubmit={handleSubmit}>
+        <div className="flex flex-col gap-4 rounded-lg border border-brand-soft bg-[#fffdf8] p-4 lg:flex-row lg:items-start lg:justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-gold">{progressLabel}</p>
             <h2 className="mt-2 text-2xl font-semibold tracking-tight text-brand-navy">
@@ -518,7 +587,7 @@ const CustomWebsite = ({ content, locale }: CustomWebsiteProps) => {
           </p>
         </div>
 
-        <div className="mt-6">{renderStepContent()}</div>
+        <div className="mt-6 rounded-lg border border-brand-soft/80 bg-white p-4">{renderStepContent()}</div>
 
         {error ? (
           <p className="mt-5 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">{error}</p>
@@ -576,7 +645,7 @@ const CustomWebsite = ({ content, locale }: CustomWebsiteProps) => {
   }
 
   return (
-    <section className="bg-brand-soft/25">
+    <section className="bg-[#f7f3ed]">
       <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
         <SectionHeader eyebrow={labels.eyebrow} title={labels.headline} text={labels.intro} />
         <div className="mt-8">{renderContent()}</div>

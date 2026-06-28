@@ -4,7 +4,8 @@ export interface CustomInquiryFormData {
   customerName: string
   customerEmail: string
   preferredContactMethod: CustomInquiryContactMethod
-  coupleNames: string
+  partnerOneName: string
+  partnerTwoName: string
   weddingDate: string
   location: string
   guestCountRange: string

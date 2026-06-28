@@ -127,6 +127,9 @@ export const siteContent = {
     submitErrorMessage: 'The inquiry could not be submitted. Please check the details and try again.',
     reviewTitle: 'Review your inquiry',
     emptyValue: 'Not specified',
+    optionalDetailsNote: 'If you do not know these details yet, leave them blank and we can confirm them later.',
+    launchDateOptionalNote: 'The delivery timing can be confirmed later if you are not ready to choose a date.',
+    defaultLanguageNote: 'English is included by default. Add Georgian or Russian only if you want extra language versions.',
     contactMethods: [
       { value: 'email', label: 'Email' },
       { value: 'phone', label: 'Phone' },
@@ -143,6 +146,18 @@ export const siteContent = {
       { value: 'story', label: 'Couple story' },
       { value: 'registry', label: 'Registry or gift details' },
     ],
+    styleOptions: [
+      { value: 'classic', label: 'Classic' },
+      { value: 'editorial', label: 'Editorial' },
+      { value: 'garden', label: 'Garden' },
+      { value: 'minimal', label: 'Minimal' },
+    ],
+    paletteOptions: [
+      { value: 'ivory', label: 'Ivory' },
+      { value: 'navy', label: 'Navy' },
+      { value: 'gold', label: 'Gold' },
+      { value: 'sage', label: 'Sage' },
+    ],
     languageOptions: [
       { value: 'English', label: 'English' },
       { value: 'Georgian', label: 'Georgian' },
@@ -153,6 +168,8 @@ export const siteContent = {
         title: 'Contact',
         description: 'Confirm who we should contact about the custom website.',
         fields: {
+          partnerOneName: 'First partner name',
+          partnerTwoName: 'Second partner name',
           customerName: 'Your name',
           customerEmail: 'Email',
           preferredContactMethod: 'Preferred contact method',
@@ -160,7 +177,7 @@ export const siteContent = {
       },
       {
         title: 'Wedding basics',
-        description: 'Share the core celebration details.',
+        description: 'Share any celebration details you already know.',
         fields: {
           coupleNames: 'Couple names',
           weddingDate: 'Wedding date',

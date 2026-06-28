@@ -12,6 +12,7 @@ function optionalText(value: string) {
 
 export async function createCustomInquiry(user: User, formData: CustomInquiryFormData) {
   const { db } = getFirebaseClient()
+  const coupleNames = `${formData.partnerOneName.trim()} & ${formData.partnerTwoName.trim()}`
   const weddingDate = optionalText(formData.weddingDate)
   const location = optionalText(formData.location)
   const guestCountRange = optionalText(formData.guestCountRange)
@@ -25,7 +26,7 @@ export async function createCustomInquiry(user: User, formData: CustomInquiryFor
     customerName: formData.customerName.trim(),
     customerEmail: formData.customerEmail.trim(),
     preferredContactMethod: formData.preferredContactMethod,
-    coupleNames: formData.coupleNames.trim(),
+    coupleNames,
     ...(weddingDate ? { weddingDate } : {}),
     ...(location ? { location } : {}),
     ...(guestCountRange ? { guestCountRange } : {}),

@@ -132,6 +132,10 @@ export const dictionaries: Record<Locale, SiteContent> = {
       submitErrorMessage: 'მოთხოვნის გაგზავნა ვერ მოხერხდა. გადაამოწმეთ დეტალები და სცადეთ ხელახლა.',
       reviewTitle: 'გადაამოწმეთ მოთხოვნა',
       emptyValue: 'არ არის მითითებული',
+      optionalDetailsNote: 'თუ ეს დეტალები ჯერ არ იცით, დატოვეთ ცარიელი და მოგვიანებით დავაზუსტებთ.',
+      launchDateOptionalNote: 'თუ თარიღის არჩევისთვის მზად არ ხართ, მიწოდების ვადას მოგვიანებით დავაზუსტებთ.',
+      defaultLanguageNote:
+        'ინგლისური ნაგულისხმევად შედის. ქართული ან რუსული დაამატეთ მხოლოდ დამატებითი ენობრივი ვერსიებისთვის.',
       contactMethods: [
         { value: 'email', label: 'ელფოსტა' },
         { value: 'phone', label: 'ტელეფონი' },
@@ -148,6 +152,18 @@ export const dictionaries: Record<Locale, SiteContent> = {
         { value: 'story', label: 'წყვილის ისტორია' },
         { value: 'registry', label: 'საჩუქრების ან registry დეტალები' },
       ],
+      styleOptions: [
+        { value: 'classic', label: 'კლასიკური' },
+        { value: 'editorial', label: 'ედიტორიალი' },
+        { value: 'garden', label: 'ბაღის სტილი' },
+        { value: 'minimal', label: 'მინიმალური' },
+      ],
+      paletteOptions: [
+        { value: 'ivory', label: 'აივორი' },
+        { value: 'navy', label: 'მუქი ლურჯი' },
+        { value: 'gold', label: 'ოქროსფერი' },
+        { value: 'sage', label: 'სეიჯი' },
+      ],
       languageOptions: [
         { value: 'English', label: 'ინგლისური' },
         { value: 'Georgian', label: 'ქართული' },
@@ -158,6 +174,8 @@ export const dictionaries: Record<Locale, SiteContent> = {
           title: 'კონტაქტი',
           description: 'დაადასტურეთ, ვის დავუკავშირდეთ ინდივიდუალური ვებსაიტის შესახებ.',
           fields: {
+            partnerOneName: 'პირველი პარტნიორის სახელი',
+            partnerTwoName: 'მეორე პარტნიორის სახელი',
             customerName: 'თქვენი სახელი',
             customerEmail: 'ელფოსტა',
             preferredContactMethod: 'სასურველი საკონტაქტო გზა',
@@ -165,7 +183,7 @@ export const dictionaries: Record<Locale, SiteContent> = {
         },
         {
           title: 'ქორწილის ძირითადი დეტალები',
-          description: 'გაგვიზიარეთ დღესასწაულის მთავარი ინფორმაცია.',
+          description: 'გაგვიზიარეთ ის დეტალები, რომლებიც უკვე იცით.',
           fields: {
             coupleNames: 'წყვილის სახელები',
             weddingDate: 'ქორწილის თარიღი',
@@ -387,6 +405,10 @@ export const dictionaries: Record<Locale, SiteContent> = {
       submitErrorMessage: 'Не удалось отправить заявку. Проверьте детали и попробуйте снова.',
       reviewTitle: 'Проверьте заявку',
       emptyValue: 'Не указано',
+      optionalDetailsNote: 'Если вы пока не знаете эти детали, оставьте поля пустыми, и мы уточним их позже.',
+      launchDateOptionalNote: 'Если вы пока не готовы выбрать дату, срок доставки можно уточнить позже.',
+      defaultLanguageNote:
+        'Английский включен по умолчанию. Добавьте грузинский или русский только для дополнительных языковых версий.',
       contactMethods: [
         { value: 'email', label: 'Email' },
         { value: 'phone', label: 'Телефон' },
@@ -403,6 +425,18 @@ export const dictionaries: Record<Locale, SiteContent> = {
         { value: 'story', label: 'История пары' },
         { value: 'registry', label: 'Подарки или registry' },
       ],
+      styleOptions: [
+        { value: 'classic', label: 'Классический' },
+        { value: 'editorial', label: 'Редакционный' },
+        { value: 'garden', label: 'Садовый' },
+        { value: 'minimal', label: 'Минимальный' },
+      ],
+      paletteOptions: [
+        { value: 'ivory', label: 'Айвори' },
+        { value: 'navy', label: 'Темно-синий' },
+        { value: 'gold', label: 'Золотой' },
+        { value: 'sage', label: 'Шалфейный' },
+      ],
       languageOptions: [
         { value: 'English', label: 'Английский' },
         { value: 'Georgian', label: 'Грузинский' },
@@ -413,6 +447,8 @@ export const dictionaries: Record<Locale, SiteContent> = {
           title: 'Контакт',
           description: 'Подтвердите, с кем нам связаться по индивидуальному сайту.',
           fields: {
+            partnerOneName: 'Имя первого партнера',
+            partnerTwoName: 'Имя второго партнера',
             customerName: 'Ваше имя',
             customerEmail: 'Email',
             preferredContactMethod: 'Предпочитаемый способ связи',
@@ -420,7 +456,7 @@ export const dictionaries: Record<Locale, SiteContent> = {
         },
         {
           title: 'Основные детали свадьбы',
-          description: 'Поделитесь ключевой информацией о торжестве.',
+          description: 'Поделитесь теми деталями торжества, которые уже знаете.',
           fields: {
             coupleNames: 'Имена пары',
             weddingDate: 'Дата свадьбы',
