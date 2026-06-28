@@ -65,7 +65,7 @@ const Catalog = ({ content, locale, templates }: CatalogProps) => {
 
   return (
     <section className="bg-brand-soft/25">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
         <SectionHeader eyebrow={content.catalog.eyebrow} title={content.catalog.headline} text={content.catalog.intro} />
 
         {catalogState.loading ? (

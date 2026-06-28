@@ -8,7 +8,7 @@ interface ButtonLinkProps {
 
 export function ButtonLink({ to, children, variant = 'primary' }: ButtonLinkProps) {
   const baseClass =
-    'inline-flex min-h-11 items-center justify-center rounded-lg px-5 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2'
+    'inline-flex min-h-11 w-full items-center justify-center rounded-lg px-5 text-center text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 sm:w-auto'
   const variantClass =
     variant === 'primary'
       ? 'bg-brand-navy text-brand-white hover:bg-brand-black'

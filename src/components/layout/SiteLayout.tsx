@@ -68,18 +68,34 @@ function SiteChrome() {
     <div className="min-h-screen bg-brand-white text-brand-black">
       {!isInvitationRoute ? (
         <header className="sticky top-0 z-20 border-b border-brand-soft bg-white/95 backdrop-blur">
-          <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
-            <Link to={getLocalizedRoute(activeLocale, 'home')} className="text-xl font-semibold tracking-tight text-brand-navy">
-              {content.brandName}
-            </Link>
-            <div className="flex items-center gap-3">
-              <nav aria-label="Primary navigation" className="flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.14em] text-brand-black/65 sm:gap-2">
+          <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between gap-3">
+              <Link to={getLocalizedRoute(activeLocale, 'home')} className="text-xl font-semibold tracking-tight text-brand-navy">
+                {content.brandName}
+              </Link>
+              <nav aria-label="Language switcher" className="flex shrink-0 items-center gap-1 text-xs font-semibold sm:hidden">
+                {supportedLocales.map((locale) => (
+                  <Link
+                    key={locale}
+                    to={getLocalizedRoute(locale, activeRouteKey)}
+                    lang={locale}
+                    className={`rounded-lg px-2.5 py-2 transition focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 ${
+                      locale === activeLocale ? 'bg-brand-gold/20 text-brand-navy' : 'text-brand-black/60 hover:bg-brand-soft/70'
+                    }`}
+                  >
+                    {localeLabels[locale]}
+                  </Link>
+                ))}
+              </nav>
+            </div>
+            <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
+              <nav aria-label="Primary navigation" className="grid grid-cols-3 gap-1 text-[0.68rem] font-semibold uppercase tracking-[0.04em] text-brand-black/65 sm:flex sm:items-center sm:gap-2 sm:text-xs sm:tracking-[0.14em]">
                 {navItems.map((item) => (
                   <NavLink
                     key={item.path}
                     to={item.path}
                     className={({ isActive }) =>
-                      `rounded-lg px-3 py-2 transition focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 ${
+                      `min-h-10 rounded-lg px-2 py-2 text-center transition focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 sm:px-3 ${
                         isActive ? 'bg-brand-navy text-brand-white' : 'hover:bg-brand-soft/70 hover:text-brand-navy'
                       }`
                     }
@@ -88,7 +104,7 @@ function SiteChrome() {
                   </NavLink>
                 ))}
               </nav>
-              <nav aria-label="Language switcher" className="flex items-center gap-1 border-l border-brand-soft pl-3 text-xs font-semibold">
+              <nav aria-label="Language switcher" className="hidden items-center gap-1 border-l border-brand-soft pl-3 text-xs font-semibold sm:flex">
                 {supportedLocales.map((locale) => (
                   <Link
                     key={locale}

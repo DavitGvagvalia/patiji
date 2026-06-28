@@ -36,9 +36,9 @@ export function TemplateCard({
             </span>
           ) : null}
         </div>
-        <div className="mt-4 flex items-start justify-between gap-4">
+        <div className="mt-4 grid gap-3 sm:flex sm:items-start sm:justify-between sm:gap-4">
           <div>
-            <h2 className="text-2xl font-semibold tracking-tight text-brand-navy">{template.name}</h2>
+            <h2 className="text-xl font-semibold tracking-tight text-brand-navy sm:text-2xl">{template.name}</h2>
             <p className="mt-2 text-sm leading-7 text-brand-black/70">{template.description}</p>
           </div>
           <p className="text-lg font-semibold text-brand-black">
@@ -52,7 +52,7 @@ export function TemplateCard({
             </span>
           ))}
         </div>
-        <div className="mt-5 grid grid-cols-2 gap-3">
+        <div className="mt-5 grid gap-3 sm:grid-cols-2">
           <button
             type="button"
             className="min-h-11 rounded-lg border border-brand-soft px-4 text-sm font-semibold text-brand-navy transition hover:border-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold"

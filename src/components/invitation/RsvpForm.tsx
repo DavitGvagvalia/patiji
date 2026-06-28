@@ -51,10 +51,10 @@ export function RsvpForm({ invitation, labels }: RsvpFormProps) {
   }
 
   return (
-    <section className="mx-auto grid w-full max-w-6xl place-items-center px-4 py-16 sm:px-6 lg:px-8" aria-labelledby="rsvp-title">
-      <form onSubmit={handleSubmit} className="w-full max-w-xl rounded-lg bg-white/92 p-6 shadow-lg backdrop-blur sm:p-10">
+    <section className="mx-auto grid w-full max-w-6xl place-items-center px-4 py-12 sm:px-6 sm:py-16 lg:px-8" aria-labelledby="rsvp-title">
+      <form onSubmit={handleSubmit} className="w-full max-w-xl rounded-lg bg-white/92 p-5 shadow-lg backdrop-blur sm:p-10">
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-brand-gold">{labels.eyebrow}</p>
-        <h2 id="rsvp-title" className="mt-3 text-4xl font-semibold tracking-tight text-brand-navy sm:text-5xl">
+        <h2 id="rsvp-title" className="mt-3 text-3xl font-semibold tracking-tight text-brand-navy sm:text-5xl">
           {labels.title}
         </h2>
 

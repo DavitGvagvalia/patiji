@@ -118,7 +118,7 @@ const Profile = ({ content, locale }: ProfileProps) => {
 
   return (
     <section className="bg-brand-soft/25">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
         <SectionHeader eyebrow={content.profile.eyebrow} title={content.profile.headline} text={content.profile.intro} />
         <div className="mt-8 grid gap-6">
           {renderProfileContent()}

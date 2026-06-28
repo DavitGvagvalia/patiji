@@ -10,7 +10,7 @@ export function SectionHeader({ eyebrow, title, text }: SectionHeaderProps) {
       {eyebrow ? (
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-brand-gold">{eyebrow}</p>
       ) : null}
-      <h2 className="mt-3 text-3xl font-semibold tracking-tight text-brand-navy sm:text-4xl">
+      <h2 className="mt-3 text-2xl font-semibold leading-tight tracking-tight text-brand-navy sm:text-4xl">
         {title}
       </h2>
       {text ? <p className="mt-4 text-base leading-8 text-brand-black/70">{text}</p> : null}

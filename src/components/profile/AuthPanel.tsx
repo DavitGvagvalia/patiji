@@ -59,8 +59,8 @@ export function AuthPanel({ labels }: AuthPanelProps) {
   }
 
   return (
-    <section className="rounded-lg border border-brand-soft bg-white p-6">
-      <h2 className="text-2xl font-semibold tracking-tight text-brand-navy">{labels.title}</h2>
+    <section className="rounded-lg border border-brand-soft bg-white p-5 sm:p-6">
+      <h2 className="text-xl font-semibold leading-tight tracking-tight text-brand-navy sm:text-2xl">{labels.title}</h2>
       <p className="mt-3 max-w-2xl text-sm leading-7 text-brand-black/70">{labels.text}</p>
 
       <div className="mt-6 max-w-xl">
@@ -68,7 +68,7 @@ export function AuthPanel({ labels }: AuthPanelProps) {
           type="button"
           onClick={() => void handleGoogleSignIn()}
           disabled={loading}
-          className="flex min-h-11 w-full items-center justify-center gap-3 rounded-lg border border-brand-soft bg-white px-5 text-sm font-semibold text-brand-navy transition hover:border-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+          className="flex min-h-11 w-full items-center justify-center gap-3 rounded-lg border border-brand-soft bg-white px-4 text-center text-sm font-semibold text-brand-navy transition hover:border-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
         >
           <span aria-hidden="true" className="text-base font-bold text-brand-gold">G</span>
           {labels.googleSignInAction}
