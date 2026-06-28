@@ -1,5 +1,7 @@
 # Testing
 
+Real Firebase catalog-product QA is documented in `docs/firebase-test-products.md`.
+
 ## Firestore rules
 
 Run Firestore security rules tests with:
