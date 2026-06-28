@@ -1,0 +1,9 @@
+{
+  "name": "Patiji",
+  "short_name": "Patiji",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#14213d",
+  "description": "Luxury wedding invitation website templates with RSVP collection."
+}

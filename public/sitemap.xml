@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://patiji.ge/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patiji.ge/" />
+    <xhtml:link rel="alternate" hreflang="ka" href="https://patiji.ge/ka" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://patiji.ge/ru" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://patiji.ge/" />
+  </url>
+  <url>
+    <loc>https://patiji.ge/catalog</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patiji.ge/catalog" />
+    <xhtml:link rel="alternate" hreflang="ka" href="https://patiji.ge/ka/catalog" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://patiji.ge/ru/catalog" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://patiji.ge/catalog" />
+  </url>
+  <url>
+    <loc>https://patiji.ge/profile</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patiji.ge/profile" />
+    <xhtml:link rel="alternate" hreflang="ka" href="https://patiji.ge/ka/profile" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://patiji.ge/ru/profile" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://patiji.ge/profile" />
+  </url>
+</urlset>

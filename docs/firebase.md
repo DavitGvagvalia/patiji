@@ -33,6 +33,10 @@ Payment flow expectations are documented in `docs/payments.md`.
 
 Public invitation document shape is documented in `docs/public-invitations.md`.
 
+Firestore rules validation is documented in `docs/testing.md`.
+
+Production deployment readiness is documented in `docs/production-readiness.md`.
+
 ## Validation path
 
 1. Add real Firebase values to `.env.local`.
