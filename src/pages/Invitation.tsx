@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import { RsvpForm } from '../components/invitation/RsvpForm'
 import { dictionaries } from '../i18n/dictionaries'
 import { defaultLocale, getLocaleFromPath } from '../i18n/locales'
@@ -38,6 +38,12 @@ export default function Invitation() {
           <p className="mt-4 text-sm leading-7 text-brand-black/70">
             {invitationState.error ?? content.invitation.unavailableText}
           </p>
+          <Link
+            to={locale === defaultLocale ? '/' : `/${locale}`}
+            className="mt-6 inline-flex min-h-11 items-center rounded-lg bg-brand-navy px-5 text-sm font-semibold text-white transition hover:bg-brand-black focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2"
+          >
+            {content.invitation.returnHomeAction}
+          </Link>
         </section>
       </main>
     )

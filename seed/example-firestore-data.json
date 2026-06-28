@@ -1,0 +1,84 @@
+{
+  "products": {
+    "velvet-garden": {
+      "name": "Velvet Garden",
+      "slug": "velvet-garden",
+      "price": 149,
+      "currency": "USD",
+      "style": "garden",
+      "palette": "sage",
+      "layout": "story-led",
+      "languageSupport": ["English", "Georgian", "Russian"],
+      "description": "A romantic garden-led template with graceful sections for ceremony details, story, schedule, and RSVP.",
+      "tags": ["Garden", "Romantic", "Story"],
+      "isActive": true,
+      "isPopular": true,
+      "createdAt": "SERVER_TIMESTAMP",
+      "updatedAt": "SERVER_TIMESTAMP"
+    },
+    "black-tie": {
+      "name": "Black Tie",
+      "slug": "black-tie",
+      "price": 179,
+      "currency": "USD",
+      "style": "classic",
+      "palette": "navy",
+      "layout": "one-page",
+      "languageSupport": ["English", "Georgian"],
+      "description": "A refined one-page invitation for formal weddings, with strong contrast and clear guest information.",
+      "tags": ["Classic", "Formal", "One-page"],
+      "isActive": true,
+      "createdAt": "SERVER_TIMESTAMP",
+      "updatedAt": "SERVER_TIMESTAMP"
+    }
+  },
+  "users": {
+    "owner-user-id": {
+      "displayName": "Nino & Daniel",
+      "email": "owner@example.com",
+      "createdAt": "SERVER_TIMESTAMP",
+      "updatedAt": "SERVER_TIMESTAMP"
+    }
+  },
+  "purchases": {
+    "paid-purchase-id": {
+      "userId": "owner-user-id",
+      "productId": "velvet-garden",
+      "invitationId": "nino-daniel-invitation",
+      "amount": 149,
+      "currency": "USD",
+      "status": "paid",
+      "paymentProvider": "stripe",
+      "providerSessionId": "replace-with-provider-session-id",
+      "createdAt": "SERVER_TIMESTAMP",
+      "updatedAt": "SERVER_TIMESTAMP"
+    }
+  },
+  "invitations": {
+    "nino-daniel-invitation": {
+      "ownerId": "owner-user-id",
+      "productId": "velvet-garden",
+      "slug": "nino-daniel",
+      "status": "active",
+      "coupleNames": "Nino & Daniel",
+      "weddingDate": "2026-09-12",
+      "createdAt": "SERVER_TIMESTAMP",
+      "updatedAt": "SERVER_TIMESTAMP"
+    }
+  },
+  "publicInvitations": {
+    "nino-daniel": {
+      "invitationId": "nino-daniel-invitation",
+      "slug": "nino-daniel",
+      "status": "active",
+      "coupleNames": "Nino & Daniel",
+      "headline": "Together with their families, they invite you to celebrate.",
+      "message": "Join us for a day shaped around vows, dinner, music, and the people closest to us.",
+      "weddingDate": "2026-09-12",
+      "venueName": "Tbilisi Garden Hall",
+      "venueAddress": "Tbilisi, Georgia",
+      "createdAt": "SERVER_TIMESTAMP",
+      "updatedAt": "SERVER_TIMESTAMP"
+    }
+  }
+}

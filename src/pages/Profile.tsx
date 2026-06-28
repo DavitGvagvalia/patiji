@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { AuthPanel } from '../components/profile/AuthPanel'
 import { GuestAnswersList } from '../components/profile/GuestAnswersList'
 import { ProfileNotice } from '../components/profile/ProfileNotice'
@@ -6,6 +7,7 @@ import { SectionHeader } from '../components/ui/SectionHeader'
 import { useAuthUser } from '../features/auth/useAuthUser'
 import { useProfileData } from '../features/profile/useProfileData'
 import { usePageSeo } from '../lib/seo'
+import { getLocalizedRoute } from '../routes/routes'
 import type { Locale, SiteContent } from '../types/i18n'
 
 interface ProfileProps {
@@ -68,6 +70,14 @@ const Profile = ({ content, locale }: ProfileProps) => {
             </button>
           </div>
           <ProfileNotice title={content.profile.noInvitationTitle} message={content.profile.noInvitationText} />
+          <div className="flex">
+            <Link
+              to={getLocalizedRoute(locale, 'catalog')}
+              className="min-h-11 rounded-lg bg-brand-navy px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-black focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2"
+            >
+              {content.profile.browseCatalogAction}
+            </Link>
+          </div>
         </>
       )
     }

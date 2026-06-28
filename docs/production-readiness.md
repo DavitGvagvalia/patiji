@@ -41,6 +41,7 @@ VITE_CHECKOUT_SESSION_ENDPOINT
 - Deploy and test `firestore.rules`.
 - Seed active `products/{productId}` documents.
 - Seed `publicInvitations/{slug}` only after verified purchase/invitation creation.
+- Use `seed/example-firestore-data.json` as reference data shape, not as proof of production state.
 - Confirm Hosting custom domain is `patiji.ge`.
 
 ## SEO and static assets

@@ -86,6 +86,8 @@ export const siteContent = {
     fallbackMessage:
       'Showing curated templates while live catalog data is unavailable.',
     noResults: 'No templates match these filters yet.',
+    noResultsSuggestion: 'Clear filters to see all available invitation templates.',
+    resetFiltersAction: 'Reset filters',
   },
   profile: {
     eyebrow: 'Customer profile',
@@ -109,6 +111,7 @@ export const siteContent = {
     noInvitationTitle: 'No purchased invitation yet',
     noInvitationText:
       'After a successful one-time purchase, your invitation website and guest RSVP answers will appear here.',
+    browseCatalogAction: 'Browse templates',
     accountTitle: 'Account',
     purchaseTitle: 'Purchased invitation',
     answersTitle: 'Guest answers',
@@ -123,6 +126,7 @@ export const siteContent = {
     loadingMessage: 'Loading invitation...',
     unavailableTitle: 'Invitation unavailable',
     unavailableText: 'This invitation may be inactive, private, or no longer available.',
+    returnHomeAction: 'Return to Patiji',
     eyebrow: 'Wedding invitation',
     defaultHeadline: 'Together with their families, they invite you to celebrate.',
     rsvpEyebrow: 'RSVP',

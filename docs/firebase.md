@@ -37,6 +37,10 @@ Firestore rules validation is documented in `docs/testing.md`.
 
 Production deployment readiness is documented in `docs/production-readiness.md`.
 
+Seed data shape is documented in `docs/seed-data.md`.
+
+Manual visual and functional QA is documented in `docs/qa-checklist.md`.
+
 ## Validation path
 
 1. Add real Firebase values to `.env.local`.

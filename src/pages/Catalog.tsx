@@ -135,9 +135,20 @@ const Catalog = ({ content, locale, templates }: CatalogProps) => {
         </div>
 
         {filteredTemplates.length === 0 ? (
-          <p className="mt-8 rounded-lg border border-dashed border-brand-soft bg-white p-6 text-sm text-brand-black/70">
-            {content.catalog.noResults}
-          </p>
+          <section className="mt-8 rounded-lg border border-dashed border-brand-soft bg-white p-6">
+            <h2 className="text-lg font-semibold text-brand-navy">{content.catalog.noResults}</h2>
+            <p className="mt-2 text-sm leading-7 text-brand-black/70">{content.catalog.noResultsSuggestion}</p>
+            <button
+              type="button"
+              onClick={() => {
+                setActiveStyle('all')
+                setActivePalette('all')
+              }}
+              className="mt-4 min-h-11 rounded-lg border border-brand-soft px-5 text-sm font-semibold text-brand-navy transition hover:border-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold"
+            >
+              {content.catalog.resetFiltersAction}
+            </button>
+          </section>
         ) : null}
       </div>
     </section>

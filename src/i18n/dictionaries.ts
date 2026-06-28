@@ -90,6 +90,8 @@ export const dictionaries: Record<Locale, SiteContent> = {
       fallbackMessage:
         'ცოცხალი კატალოგის მონაცემების მიუწვდომლობისას ნაჩვენებია შერჩეული შაბლონები.',
       noResults: 'ამ ფილტრებით შაბლონები ჯერ არ მოიძებნა.',
+      noResultsSuggestion: 'გაასუფთავეთ ფილტრები ყველა ხელმისაწვდომი შაბლონის სანახავად.',
+      resetFiltersAction: 'ფილტრების გასუფთავება',
     },
     profile: {
       ...siteContent.profile,
@@ -114,6 +116,7 @@ export const dictionaries: Record<Locale, SiteContent> = {
       noInvitationTitle: 'შეძენილი მოსაწვევი ჯერ არ არის',
       noInvitationText:
         'წარმატებული ერთჯერადი შეძენის შემდეგ თქვენი მოსაწვევი ვებსაიტი და RSVP პასუხები აქ გამოჩნდება.',
+      browseCatalogAction: 'შაბლონების ნახვა',
       accountTitle: 'ანგარიში',
       purchaseTitle: 'შეძენილი მოსაწვევი',
       answersTitle: 'სტუმრების პასუხები',
@@ -129,6 +132,7 @@ export const dictionaries: Record<Locale, SiteContent> = {
       loadingMessage: 'მოსაწვევი იტვირთება...',
       unavailableTitle: 'მოსაწვევი მიუწვდომელია',
       unavailableText: 'ეს მოსაწვევი შეიძლება იყოს არააქტიური, პირადი ან აღარ იყოს ხელმისაწვდომი.',
+      returnHomeAction: 'Patiji-ზე დაბრუნება',
       eyebrow: 'საქორწილო მოსაწვევი',
       defaultHeadline: 'ოჯახებთან ერთად გიწვევთ საზეიმო დღესასწაულზე.',
       rsvpEyebrow: 'RSVP',
@@ -234,6 +238,8 @@ export const dictionaries: Record<Locale, SiteContent> = {
       fallbackMessage:
         'Показаны отобранные шаблоны, пока данные live-каталога недоступны.',
       noResults: 'По этим фильтрам шаблонов пока нет.',
+      noResultsSuggestion: 'Сбросьте фильтры, чтобы увидеть все доступные шаблоны.',
+      resetFiltersAction: 'Сбросить фильтры',
     },
     profile: {
       ...siteContent.profile,
@@ -258,6 +264,7 @@ export const dictionaries: Record<Locale, SiteContent> = {
       noInvitationTitle: 'Купленного приглашения пока нет',
       noInvitationText:
         'После успешной разовой покупки ваш сайт-приглашение и RSVP-ответы появятся здесь.',
+      browseCatalogAction: 'Смотреть шаблоны',
       accountTitle: 'Аккаунт',
       purchaseTitle: 'Купленное приглашение',
       answersTitle: 'Ответы гостей',
@@ -273,6 +280,7 @@ export const dictionaries: Record<Locale, SiteContent> = {
       loadingMessage: 'Загрузка приглашения...',
       unavailableTitle: 'Приглашение недоступно',
       unavailableText: 'Это приглашение может быть неактивным, приватным или больше недоступным.',
+      returnHomeAction: 'Вернуться к Patiji',
       eyebrow: 'Свадебное приглашение',
       defaultHeadline: 'Вместе с семьями они приглашают вас на праздник.',
       rsvpEyebrow: 'RSVP',
